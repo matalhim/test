@@ -6,3 +6,4 @@ while i < 4:
     sum += i
 print(i)
 print(i**3)
+print('good day')
