@@ -7,3 +7,4 @@ while i < 4:
 print(i)
 print(i**3)
 print('good day')
+print('hi')
