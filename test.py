@@ -5,3 +5,4 @@ while i < 4:
     i += 1
     sum += i
 print(i)
+print(i**3)
