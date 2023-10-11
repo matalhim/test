@@ -87,10 +87,7 @@ class BlackjackGame:
     def end_game(self, result, show_computer_cards=False):
         self.hit_button.config(state=tk.DISABLED)
         self.stand_button.config(state=tk.DISABLED)
-        if result == "Player wins!":
-            self.player_score_label.config(text=result, fg="green")
-        else:
-            self.player_score_label.config(text=result, fg="red")
+        self.player_score_label.config(text=result)
         if show_computer_cards:
             self.update_computer_ui()
 
