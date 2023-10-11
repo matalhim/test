@@ -8,37 +8,30 @@ class TicTacToeGUI:
     def __init__(self, root):
         self.root = root
         self.root.title("Крестики-Нолики")
-        self.theme = "light"  # Изначально устанавливаем светлую тему
+        self.theme = "light"
 
-        # Создаем кнопку "Сменить тему" и кнопку "Играть заново"
         self.theme_button = tk.Button(self.root, text="Сменить тему", command=self.toggle_theme)
-        self.theme_button.grid(row=0, column=0)  # Кнопка "Сменить тему" в первой колонке
+        self.theme_button.grid(row=0, column=0)
         self.restart_button = tk.Button(self.root, text="Играть заново", command=self.restart_game)
-        self.restart_button.grid(row=0, column=1)  # Кнопка "Играть заново" во второй колонке
+        self.restart_button.grid(row=0, column=1)
 
-        # Переменная для хранения режима игры
         self.game_mode = tk.StringVar()
         self.game_mode.set("two_players")
 
-        # Создаем радиокнопки для выбора режима игры
-        self.two_players_radio = tk.Radiobutton(root, text="Играть вдвоем", variable=self.game_mode,
-                                                value="two_players")
+        self.two_players_radio = tk.Radiobutton(root, text="Играть вдвоем", variable=self.game_mode, value="two_players")
         self.with_bot_radio = tk.Radiobutton(root, text="Играть с ботом", variable=self.game_mode, value="with_bot")
 
         self.two_players_radio.grid(row=0, column=0)
         self.with_bot_radio.grid(row=0, column=1)
 
-        # Создаем кнопку "Начать игру заново" в главном окне
         self.restart_button = tk.Button(root, text="Играть заново", command=self.restart_game)
         self.restart_button.grid(row=1, column=0, columnspan=2)
 
-        # Создаем доску для игры
         self.board = [[" " for _ in range(3)] for _ in range(3)]
         self.current_player = "X"
         self.game_over = False
 
         self.buttons = [[None for _ in range(3)] for _ in range(3)]
-
 
         for i in range(3):
             for j in range(3):
@@ -46,7 +39,6 @@ class TicTacToeGUI:
                                                command=lambda i=i, j=j: self.make_move(i, j))
                 self.buttons[i][j].grid(row=i + 2, column=j)
 
-        # Создаем метку для отображения победителя
         self.winner_label = tk.Label(root, text="", font=("Helvetica", 16))
         self.winner_label.grid(row=5, columnspan=2)
 
@@ -59,35 +51,29 @@ class TicTacToeGUI:
 
     def apply_theme(self):
         if self.theme == "light":
-            self.root.configure(bg="white")  # Устанавливаем цвет фона светлой темы
+            self.root.configure(bg="white")
         else:
-            self.root.configure(bg="black")  # Устанавливаем цвет фона темной темы
+            self.root.configure(bg="black")
 
     def restart_game(self):
-        # Очищаем доску и сбрасываем состояние игры
         self.board = [[" " for _ in range(3)] for _ in range(3)]
         self.current_player = "X"
         self.game_over = False
-
-        # Скрываем текст метки победителя
         self.winner_label.config(text="")
 
-        # Отображаем доску
         for i in range(3):
             for j in range(3):
                 self.buttons[i][j]["text"] = ""
 
-        # Возвращаем радиокнопки
         self.two_players_radio.grid()
         self.with_bot_radio.grid()
-
-        # Отображаем кнопку "Играть заново"
         self.restart_button.grid()
+
     def make_move(self, row, col):
         if not self.game_over and self.board[row][col] == " ":
             self.board[row][col] = self.current_player
             self.buttons[row][col]["text"] = self.current_player
-            self.buttons[row][col]["fg"] = "red" if self.current_player == "X" else "blue"  # Красный для X, синий для O
+            self.buttons[row][col]["fg"] = "red" if self.current_player == "X" else "blue"
             if self.check_win(self.current_player):
                 self.display_winner(self.current_player)
             elif self.check_draw():
